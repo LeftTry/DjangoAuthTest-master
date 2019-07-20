@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<title>KaboFix:Registration</title>
+<h1>Регистрация</h1>
+{% if messages %}
+<ul>
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+<form method="post">
+    {% csrf_token %}
+  <div class="row">
+    <div class="col">
+      <div class="row">
+    <div class="col">
+   <label for FirstName>Имя:</label>
+      <input type="text" id="FirstName" class="form-control" placeholder="Введите имя" autofocus />
+    </div>
+    <div class="col">
+        <label for LastName>Фамилия:</label>
+      <input type="text" id="LastName" class="form-control" placeholder="Введите фамилию">
+    </div>
+  </div><br>
+    <label for="UserName">Логин:</label>
+    <input type="text" name="login" id="UserName" class="form-control" placeholder="Вася"/><br>
+    <label for="Email">Email:</label>
+    <input type="email" name="email" class="form-control" id="Email" placeholder="proverka@gmail.com"/><br>
+    <label for="Passwords">Пароль:</label>
+    <input type="password" class="form-control" id="Password" name="password" placeholder="kabostyle1998"/><br>
+    <input type="submit" class="btn btn-primary"  value="Регистрация">
+    </div>
+  </div>
+</form>
+<p><a href="/login">Вход</a></p>
+{% endblock %}

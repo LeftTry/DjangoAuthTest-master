@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+{% csrf_token %}
+<title>KaboFix:CreateProblem</title>
+<div>
+<form method="post">
+ {% csrf_token %}
+<label for "HouseNumber">Номер домика:</label>
+<input type="number" placeholder="№19" name="Number" title="Введите номер домика" autofocus class="form-control" required id="HouseNumber" style="width: 180px;" min="1" max="22" /><br>
+<label for="exampleFormControlTextarea1">Опишите проблему:</label>
+    <textarea  class="form-control" placeholder="Введите текст" name="Problem" id="exampleFormControlTextarea1" title="Опишите проблему" rows="15"></textarea><br>
+    <input type="submit" value="Отправить" class="btn btn-primary" />
+</form>
+</div>
+{% endblock %}
