@@ -36,7 +36,7 @@ def fixer(request):
 def openmyproblems(request):
     if request.method == 'GET':
         if request.user.is_authenticated:
-            problems_u = Problem.objects.filter(status='Не выполнено', author=request.user)
+            problems_u = Problem.objects.filter(status__in=('Не выполнено', 'В работе'), author=request.user)
             return render(request, 'my_problem.html', {'problems_u': problems_u})
 
 def openmysolvedproblems(request):
@@ -47,7 +47,7 @@ def openmysolvedproblems(request):
 
 def openproblemsinwork(request):
     if request.user.is_authenticated:
-        problems_o = Problem.objects.filter(status='В работе', author=request.user)
+        problems_o = Problem.objects.filter(status='В работе')
         return render(request, 'problemsinwork.html', {'problems_o': problems_o})
 
 def CreateProblem(request):
