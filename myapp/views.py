@@ -9,14 +9,28 @@ from myapp.models import Problem
 
 
 def index(request):
+    user = User.objects.get(pk=1)
+    group = user.groups.all()
     if request.user.is_authenticated:
-        if User.groups == 'Fixer':
+        if group == 'Fixer':
             return render(request, 'fixer.html')
         else:
             problems = Problem.objects.all()
             return render(request, "index.html", {'problems': problems})
     else:
         return redirect('/login')
+
+def openmyproblems(request):
+    if request.method == 'GET':
+        if request.user.is_authenticated:
+            problems_u = Problem.objects.filter(status='Не выполнено', author=request.user)
+            return render(request, 'my_problem.html', {'problems_u': problems_u})
+
+def openmysolvedproblems(request):
+    if request.method == 'GET':
+        if request.user.is_authenticated:
+            prblems_i = Problem.objects.filter(status='Выполнено', author=request.user)
+            return render(request, 'mysolvedproblems.html', {'prblems_i': prblems_i})
 
 def CreateProblem(request):
     if request.method == 'GET':

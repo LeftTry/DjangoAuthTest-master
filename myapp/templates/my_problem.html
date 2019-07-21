@@ -1,10 +1,7 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% block content %}
-{% csrf_token %}
-<title>KaboFix:Main</title>
-  <div>
-  <h1>Главная</h1>
-</div>
+<title>KaboFix:YourProblems</title>
+<h1>Добро пожаловать {{user.username}}!</h1>
 <div>
 <ul class="nav nav-tabs">
   <li class="nav-item">
@@ -18,11 +15,8 @@
   </li>
   </ul>
   </div>
-    <div align="right">
- <a href="/Create" class="btn btn-primary">Создать новую жалобу</a>
-</div>
     <div class="card-columns">
-  {% for problem in problems %}
+  {% for problem in problems_u %}
   {% if problem.status == 'Не выполнено' %}
   <div>
 <div class="card border-danger mb-3" style="max-width: 18rem;">
@@ -50,19 +44,5 @@
 {% endif %}
 {% endfor %}
 </div>
-    <div class="card-columns">
-  {% for problem in problems %}
-  {% if problem.status == 'Выполнено' %}
-  <div>
-<div class="card border-danger mb-3" style="max-width: 18rem;">
-  <div class="card-header"><h3>{{ problem.author }}</h3></div>
-  <div class="card-body text-success">
-    <h5 class="card-title">Комната №{{ problem.room }}</h5>
-    <p class="card-text">{{ problem.text }}</p>
-    <p class="card-text">{{ problem.status }}</p>
-  </div>
-</div>
-</div>
-{% endif %}
-{% endfor %}
+
 {% endblock %}

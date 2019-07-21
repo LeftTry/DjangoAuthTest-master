@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<title>KaboFix:YourProblems</title>
+<h1>Архив</h1>
+<div>
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link active"  href="/">Все жалобы</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active"  href="/my_problems">Ваши не выполненые жалобы</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active"  href="/mysolvedproblems">Ваши выполннные жалобы</a>
+  </li>
+  </ul>
+  </div>
+    <div class="card-columns">
+  {% for problem in prblems_i %}
+  {% if problem.status == 'Выполнено' %}
+  <div>
+<div class="card border-danger mb-3" style="max-width: 18rem;">
+  <div class="card-header"><h3>{{ problem.author }}</h3></div>
+  <div class="card-body text-danger">
+    <h5 class="card-title">Комната №{{ problem.room }}</h5>
+    <p class="card-text">{{ problem.text }}</p>
+    <p class="card-text">{{ problem.status }}</p>
+  </div>
+</div>
+</div>
+{% endif %}
+{% endfor %}
+{% endblock%}
