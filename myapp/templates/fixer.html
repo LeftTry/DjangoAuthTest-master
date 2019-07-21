@@ -1,4 +1,72 @@
-{% extends 'base.html %}
-{% block container %}
-
+{% extends "base.html" %}
+{% block content %}
+{% csrf_token %}
+<title>KaboFix:Main</title>
+  <div>
+  <h1>Главная</h1>
+</div>
+<div>
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link active"  href="/">Все жалобы</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active"  href="/my_problems">Все заявки в работе</a>
+  </li>
+  </ul>
+  </div>
+    <div class="card-columns">
+  {% for problem in problems %}
+  {% if problem.status == 'Не выполнено' %}
+  <div>
+<div class="card border-danger mb-3" style="max-width: 18rem;">
+  <div class="card-header"><h3>{{ user.username }}</h3></div>
+  <div class="card-body text-danger">
+    <h5 class="card-title">Комната №{{ problem.room }}</h5>
+    <p class="card-text">{{ problem.text }}</p>
+    <p class="card-text">{{ problem.status }}</p>
+    <form method="post">
+    {% csrf_token %}
+    <input type="hidden"  name="id" value="{{problem.id}}" />
+    <input type="submit" value="Взять в работу" class="btn btn-primary" name="Take" />
+</form>
+  </div>
+</div>
+</div>
+{% endif %}
+{% endfor %}
+  {% for problem in problems %}
+  {% if problem.status == 'В работе' %}
+  <div>
+<div class="card border-danger mb-3" style="max-width: 18rem;">
+  <div class="card-header"><h3>{{ problem.author }}</h3></div>
+  <div class="card-body text-warning">
+    <h5 class="card-title">Комната №{{ problem.room }}</h5>
+    <p class="card-text">{{ problem.text }}</p>
+    <p class="card-text">{{ problem.status }}</p>
+       <form method="post">
+       {% csrf_token %}
+       <input type="hidden"  name="id" value="{{problem.id}}" />
+    <input type="submit" value="Решено" class="btn btn-primary" name="Success" />
+</form>
+  </div>
+</div>
+</div>
+{% endif %}
+{% endfor %}
+  {% for problem in problems %}
+  {% if problem.status == 'Выполнено' %}
+  <div>
+<div class="card border-danger mb-3" style="max-width: 18rem;">
+  <div class="card-header"><h3>{{ problem.author }}</h3></div>
+  <div class="card-body text-success">
+    <h5 class="card-title">Комната №{{ problem.room }}</h5>
+    <p class="card-text">{{ problem.text }}</p>
+    <p class="card-text">{{ problem.status }}</p>
+</div>
+</div>
+</div>
+</div>
+{% endif %}
+{% endfor %}
 {% endblock %}

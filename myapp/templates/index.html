@@ -26,7 +26,7 @@
   {% if problem.status == 'Не выполнено' %}
   <div>
 <div class="card border-danger mb-3" style="max-width: 18rem;">
-  <div class="card-header"><h3>{{ problem.author }}</h3></div>
+  <div class="card-header"><h3>{{ user.username }}</h3></div>
   <div class="card-body text-danger">
     <h5 class="card-title">Комната №{{ problem.room }}</h5>
     <p class="card-text">{{ problem.text }}</p>
@@ -37,7 +37,7 @@
 {% endif %}
 {% endfor %}
   {% for problem in problems %}
-  {% if problem.status == 'В рассмотрении' %}
+  {% if problem.status == 'В работе' %}
   <div>
 <div class="card border-danger mb-3" style="max-width: 18rem;">
   <div class="card-header"><h3>{{ problem.author }}</h3></div>

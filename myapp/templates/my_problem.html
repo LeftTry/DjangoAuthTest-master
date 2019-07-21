@@ -31,7 +31,7 @@
 {% endif %}
 {% endfor %}
   {% for problem in problems %}
-  {% if problem.status == 'В рассмотрении' %}
+  {% if problem.status == 'В работе' %}
   <div>
 <div class="card border-danger mb-3" style="max-width: 18rem;">
   <div class="card-header"><h3>{{ problem.author }}</h3></div>

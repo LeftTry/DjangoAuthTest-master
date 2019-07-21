@@ -9,16 +9,29 @@ from myapp.models import Problem
 
 
 def index(request):
-    user = User.objects.get(pk=1)
-    group = user.groups.all()
     if request.user.is_authenticated:
-        if group == 'Fixer':
-            return render(request, 'fixer.html')
+        problems = Problem.objects.all()
+        if request.user.groups.filter(name='Fixer'):
+            return fixer(request)
         else:
             problems = Problem.objects.all()
             return render(request, "index.html", {'problems': problems})
     else:
         return redirect('/login')
+def fixer(request):
+    if request.method == 'GET':
+        if request.user.is_authenticated:
+            problems = Problem.objects.all()
+            return render(request, 'fixer.html', {'problems': problems})
+    if request.method == 'POST':
+        problem = Problem.objects.get(pk=request.POST['id'])
+        if request.POST.get("Take"):
+            problem.status = 'В работе'
+            problem.save()
+        if request.POST.get("Success"):
+            problem.status = 'Выполнено'
+            problem.save()
+        return redirect('/fixer')
 
 def openmyproblems(request):
     if request.method == 'GET':
@@ -31,6 +44,11 @@ def openmysolvedproblems(request):
         if request.user.is_authenticated:
             prblems_i = Problem.objects.filter(status='Выполнено', author=request.user)
             return render(request, 'mysolvedproblems.html', {'prblems_i': prblems_i})
+
+def openproblemsinwork(request):
+    if request.user.is_authenticated:
+        problems_o = Problem.objects.filter(status='В работе', author=request.user)
+        return render(request, 'problemsinwork.html', {'problems_o': problems_o})
 
 def CreateProblem(request):
     if request.method == 'GET':
