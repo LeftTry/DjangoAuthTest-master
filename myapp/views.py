@@ -18,6 +18,14 @@ def index(request):
             return render(request, "index.html", {'problems': problems})
     else:
         return redirect('/login')
+
+def like(request):
+    id = request.GET.get('id')
+    problem = Problem.objects.filter(pk=id)
+    problem.likes.add(request.user)
+    typelike = problem.likes.count()
+    return render(request, 'like.html')
+
 def fixer(request):
     if request.method == 'GET':
         if request.user.is_authenticated:
@@ -36,7 +44,7 @@ def fixer(request):
 def openmyproblems(request):
     if request.method == 'GET':
         if request.user.is_authenticated:
-            problems_u = Problem.objects.filter(status__in=('Не выполнено', 'В работе'), author=request.user)
+            problems_u = Problem.objects.filter(status__inauthor=request.user)
             return render(request, 'my_problem.html', {'problems_u': problems_u})
 
 def openmysolvedproblems(request):

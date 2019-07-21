@@ -20,7 +20,7 @@
   </div>
     <div align="right">
  <a href="/Create" class="btn btn-primary">Создать новую жалобу</a>
-</div>
+</div><br>
     <div class="card-columns">
   {% for problem in problems %}
   {% if problem.status == 'Не выполнено' %}
@@ -31,6 +31,7 @@
     <h5 class="card-title">Комната №{{ problem.room }}</h5>
     <p class="card-text">{{ problem.text }}</p>
     <p class="card-text">{{ problem.status }}</p>
+    <a class="btn btn-primary" type="submit" value="Like" name="Like" href="/like?id={{ problem.id }}" ></a>
   </div>
 </div>
 </div>

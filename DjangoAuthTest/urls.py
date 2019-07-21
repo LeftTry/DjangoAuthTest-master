@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from myapp.views import index, login_page, register, logout_page, CreateProblem, openmyproblems, openmysolvedproblems, fixer, openproblemsinwork
+from myapp.views import index, login_page, register, logout_page, CreateProblem, openmyproblems, openmysolvedproblems, fixer, openproblemsinwork, like
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,5 +28,6 @@ urlpatterns = [
     path('my_problems', openmyproblems),
     path('mysolvedproblems', openmysolvedproblems),
     path('fixer', fixer),
-    path('problemsinwork', openproblemsinwork)
+    path('problemsinwork', openproblemsinwork),
+    path('like/<int:id>', like)
 ]
